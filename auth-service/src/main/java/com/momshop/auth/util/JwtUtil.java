@@ -65,25 +65,12 @@ public class JwtUtil {
 
     // Check if token is expired
     public boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        return !extractExpiration(token).before(new Date());
     }
 
     // Validate token
     public boolean validateToken(String token, String username) {
         final String tokenUsername = extractUsername(token);
-        return (tokenUsername.equals(username) && !isTokenExpired(token));
-    }
-
-    // Validate token (overload)
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
-                    .build()
-                    .parseClaimsJws(token);
-            return !isTokenExpired(token);
-        } catch (Exception e) {
-            return false;
-        }
+        return (tokenUsername.equals(username) && isTokenExpired(token));
     }
 }

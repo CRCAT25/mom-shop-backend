@@ -1,4 +1,4 @@
-package com.momshop.auth.config;
+package com.momshop.auth.property;
 
 import lombok.Getter;
 import lombok.Setter;
